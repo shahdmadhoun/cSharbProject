@@ -6,5 +6,6 @@ namespace Part2_Project
 {
     interface IShoppingBag
     {
+        void PrintShoppingBag();
     }
 }
