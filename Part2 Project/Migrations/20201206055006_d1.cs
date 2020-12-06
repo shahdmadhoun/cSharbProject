@@ -68,8 +68,9 @@ namespace Part2_Project.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    ItemID = table.Column<int>(type: "int", nullable: true),
-                    OrderID = table.Column<int>(type: "int", nullable: true)
+                    CostPerItem = table.Column<float>(type: "real", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: true),
+                    ProductID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,11 +82,11 @@ namespace Part2_Project.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TransactionItems_Products_ItemID",
-                        column: x => x.ItemID,
+                        name: "FK_TransactionItems_Products_ProductID",
+                        column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -94,14 +95,15 @@ namespace Part2_Project.Migrations
                 column: "CustomerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionItems_ItemID",
-                table: "TransactionItems",
-                column: "ItemID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TransactionItems_OrderID",
                 table: "TransactionItems",
                 column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransactionItems_ProductID",
+                table: "TransactionItems",
+                column: "ProductID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -10,7 +10,7 @@ using Part2_Project;
 namespace Part2_Project.Migrations
 {
     [DbContext(typeof(CompCtx))]
-    [Migration("20201130110359_d1")]
+    [Migration("20201206055006_d1")]
     partial class d1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,10 +96,13 @@ namespace Part2_Project.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ItemID")
-                        .HasColumnType("int");
+                    b.Property<float>("CostPerItem")
+                        .HasColumnType("real");
 
                     b.Property<int?>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -107,9 +110,10 @@ namespace Part2_Project.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ItemID");
-
                     b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID")
+                        .IsUnique();
 
                     b.ToTable("TransactionItems");
                 });
@@ -140,22 +144,28 @@ namespace Part2_Project.Migrations
 
             modelBuilder.Entity("Part2_Project.Order", b =>
                 {
-                    b.HasOne("Part2_Project.Customer", null)
+                    b.HasOne("Part2_Project.Customer", "Customer")
                         .WithMany("OrderList")
                         .HasForeignKey("CustomerID");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Part2_Project.TransactionItem", b =>
                 {
-                    b.HasOne("Part2_Project.Product", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemID");
-
-                    b.HasOne("Part2_Project.Order", null)
+                    b.HasOne("Part2_Project.Order", "Order")
                         .WithMany("transactionItems")
                         .HasForeignKey("OrderID");
 
-                    b.Navigation("Item");
+                    b.HasOne("Part2_Project.Product", "Product")
+                        .WithOne("transactionItem")
+                        .HasForeignKey("Part2_Project.TransactionItem", "ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Part2_Project.Customer", b =>
@@ -166,6 +176,11 @@ namespace Part2_Project.Migrations
             modelBuilder.Entity("Part2_Project.Order", b =>
                 {
                     b.Navigation("transactionItems");
+                });
+
+            modelBuilder.Entity("Part2_Project.Product", b =>
+                {
+                    b.Navigation("transactionItem");
                 });
 #pragma warning restore 612, 618
         }

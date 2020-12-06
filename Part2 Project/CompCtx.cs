@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Part2_Project
 {
-    class CompCtx: DbContext
+    public class CompCtx: DbContext
     {
         public DbSet<Company> Companys { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -16,7 +16,7 @@ namespace Part2_Project
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=HP-03;Database=company;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=HP-03;Database=company1;Trusted_Connection=True;");
         }
     }
 }

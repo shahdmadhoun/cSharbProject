@@ -54,3 +54,5 @@ C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\ne
 C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\netcoreapp3.1\Part2 Project.genruntimeconfig.cache
 C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\netcoreapp3.1\Part2_Project.Admin.resources
 C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\netcoreapp3.1\Part2_Project.LogIn.resources
+C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\netcoreapp3.1\Part2_Project.customerForm.resources
+C:\Users\shahd madhoun\Downloads\cSharbProject-master\Part2 Project\obj\Debug\netcoreapp3.1\Part2_Project.SignUp.resources

@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Part2_Project
 {
-    enum OrderStatus {InProgress , Pending, Delivered }
-    class Order:IShoppingBag
+    public enum OrderStatus {InProgress , Pending, Delivered }
+    public class Order:IShoppingBag
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
         public OrderStatus Status { get; set; }
 
-        public List<TransactionItem> transactionItems { get; set; }
+        [NotMapped]
+        public float Final_Cost { get; set; }
+
+        public ICollection<TransactionItem> transactionItems { get; set; }
+        public Customer Customer { get; set; }
         public void AddItem(TransactionItem  item) {
             transactionItems.Add(item);
         }
@@ -26,7 +31,7 @@ namespace Part2_Project
         {
             string s = $"ID = {ID} , Date: {Date}, Status: {Status}";
             foreach (TransactionItem i in transactionItems)
-                s += $" , {i.ID} :  , {i.Item} , {i.Quantity}";
+                s += $" , {i.ID} :  , {i.Order} , {i.Quantity}";
             return s;
         }
            
